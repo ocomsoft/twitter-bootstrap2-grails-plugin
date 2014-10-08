@@ -1,13 +1,13 @@
-def log = org.slf4j.LoggerFactory.getLogger('grails.plugins.twitterbootstrap.BootstrapResources')
+def log = org.slf4j.LoggerFactory.getLogger('grails.plugins.twitterbootstrap2.BootstrapResources')
 def dev = grails.util.GrailsUtil.isDevelopmentEnv()
 
 def pluginManager = grails.util.Holders.pluginManager
 def lesscssPlugin = pluginManager.getGrailsPlugin('lesscss-resources') || pluginManager.getGrailsPlugin('less-resources')
 def jqueryPlugin = pluginManager.getGrailsPlugin('jquery')
-def configTagLib = grails.util.Holders.config.grails.plugins.twitterbootstrap.fixtaglib
-def configDefaultBundle = grails.util.Holders.config.grails.plugins.twitterbootstrap.defaultBundle
+def configTagLib = grails.util.Holders.config.grails.plugins.twitterbootstrap2.fixtaglib
+def configDefaultBundle = grails.util.Holders.config.grails.plugins.twitterbootstrap2.defaultBundle
 if (!configDefaultBundle && !configDefaultBundle.equals(false)) {
-    configDefaultBundle = 'bundle_bootstrap'
+    configDefaultBundle = 'bundle_bootstrap2'
 }
 
 def dirLessSource
@@ -16,189 +16,189 @@ def dirTarget
 log.debug "dirLessSource: ${dirLessSource}"
 log.debug "dirTarget: ${dirTarget}"
 
-def cssFile = "bootstrap.css"
-def cssminFile = "bootstrap.min.css"
+def cssFile = "bootstrap2.css"
+def cssminFile = "bootstrap2.min.css"
 
-log.debug "config: grails.plugins.twitterbootstrap.fixtaglib = ${configTagLib}"
-log.debug "config: grails.plugins.twitterbootstrap.defaultBundle = ${configDefaultBundle}"
+log.debug "config: grails.plugins.twitterbootstrap2.fixtaglib = ${configTagLib}"
+log.debug "config: grails.plugins.twitterbootstrap2.defaultBundle = ${configDefaultBundle}"
 
 log.debug "is lesscss-resources plugin loaded? ${!!lesscssPlugin}"
 log.debug "is jquery plugin loaded? ${!!jqueryPlugin}"
 
 modules = {
 
-    'bootstrap-fixtaglib' {
-        defaultBundle 'fixtaglib'
+    'bootstrap2-fixtaglib' {
+        defaultBundle 'fixtaglib2'
         
-        resource id: 'bootstrap-fixtaglib', url:[plugin: 'twitter-bootstrap', dir: 'css', file: 'bootstrap-fixtaglib.css'], disposition: 'head'
+        resource id: 'bootstrap2-fixtaglib', url:[plugin: 'twitter-bootstrap2', dir: 'css', file: 'bootstrap-fixtaglib.css'], disposition: 'head'
     }
 
-    'bootstrap-css' {
+    'bootstrap2-css' {
         defaultBundle configDefaultBundle
         if (configTagLib) {
-            dependsOn 'bootstrap-fixtaglib'
+            dependsOn 'bootstrap2-fixtaglib'
         }
         
-        resource id: 'bootstrap-css', url:[plugin: 'twitter-bootstrap', dir: 'css', file: (dev ? cssFile : cssminFile)], disposition: 'head', exclude:'minify'
+        resource id: 'bootstrap2-css', url:[plugin: 'twitter-bootstrap2', dir: 'css', file: (dev ? cssFile : cssminFile)], disposition: 'head', exclude:'minify'
     }
 
-    'bootstrap-responsive-css' {
+    'bootstrap2-responsive-css' {
         defaultBundle configDefaultBundle
-        dependsOn 'bootstrap-css'
+        dependsOn 'bootstrap2-css'
 
-        resource id: 'bootstrap-responsive-css', url:[plugin: 'twitter-bootstrap', dir: 'css', file: (dev ? 'bootstrap-responsive.css' : 'bootstrap-responsive.min.css')], disposition: 'head', exclude:'minify'
+        resource id: 'bootstrap2-responsive-css', url:[plugin: 'twitter-bootstrap2', dir: 'css', file: (dev ? 'bootstrap2-responsive.css' : 'bootstrap2-responsive.min.css')], disposition: 'head', exclude:'minify'
     }
     
-    'bootstrap-responsive-less' {
-	dependsOn 'bootstrap-less'
-	resource id: 'bootstrap-responsive-less', url:[plugin: 'twitter-bootstrap', dir: 'less', file: 'responsive.less'], attrs:[rel: "stylesheet/less", type:'css']
+    'bootstrap2-responsive-less' {
+		dependsOn 'bootstrap2-less'
+		resource id: 'bootstrap2-responsive-less', url:[plugin: 'twitter-bootstrap2', dir: 'less', file: 'responsive.less'], attrs:[rel: "stylesheet/less", type:'css']
     }
 
 
-    'bootstrap-alert' {
+    'bootstrap2-alert' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
 
-        resource id: 'bootstrap-alert', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-alert.js']
+        resource id: 'bootstrap2-alert', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-alert.js']
     }
 
-    'bootstrap-affix' {
+    'bootstrap2-affix' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
 
-        resource id: 'bootstrap-affix', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-affix.js']
+        resource id: 'bootstrap2-affix', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-affix.js']
     }
 
-    'bootstrap-dropdown' {
+    'bootstrap2-dropdown' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
 
-        resource id: 'bootstrap-dropdown', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-dropdown.js']
+        resource id: 'bootstrap2-dropdown', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-dropdown.js']
     }
 
-    'bootstrap-modal' {
+    'bootstrap2-modal' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
         
-        resource id: 'bootstrap-modal', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-modal.js']
+        resource id: 'bootstrap2-modal', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-modal.js']
     }
 
-    'bootstrap-popover' {
+    'bootstrap2-popover' {
         defaultBundle configDefaultBundle
-        dependsOn 'bootstrap-tooltip'
+        dependsOn 'bootstrap2-tooltip'
         
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
 
-        resource id: 'bootstrap-popover', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-popover.js']
+        resource id: 'bootstrap2-popover', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-popover.js']
     }
 
-    'bootstrap-scrollspy' {
+    'bootstrap2-scrollspy' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
         
-        resource id: 'bootstrap-scrollspy', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-scrollspy.js']
+        resource id: 'bootstrap2-scrollspy', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-scrollspy.js']
     }
 
-    'bootstrap-tab' {
+    'bootstrap2-tab' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
         
-        resource id: 'bootstrap-tab', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-tab.js']
+        resource id: 'bootstrap2-tab', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-tab.js']
     }
 
-    'bootstrap-tooltip' {
+    'bootstrap2-tooltip' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
         
-        resource id: 'bootstrap-tooltip', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-tooltip.js']
+        resource id: 'bootstrap2-tooltip', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-tooltip.js']
     }
 
-    'bootstrap-button' {
+    'bootstrap2-button' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
         
-        resource id: 'bootstrap-button', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-button.js']
+        resource id: 'bootstrap2-button', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-button.js']
     }
 
-    'bootstrap-carousel' {
+    'bootstrap2-carousel' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
 
-        resource id: 'bootstrap-carousel', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-carousel.js']
+        resource id: 'bootstrap2-carousel', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-carousel.js']
     }
 
-    'bootstrap-typeahead' {
+    'bootstrap2-typeahead' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
 
-        resource id: 'bootstrap-typeahead', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-typeahead.js']
+        resource id: 'bootstrap2-typeahead', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-typeahead.js']
     }
 
-    'bootstrap-collapse' {
+    'bootstrap2-collapse' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
 
-        resource id: 'bootstrap-collapse', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-collapse.js']
+        resource id: 'bootstrap2-collapse', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-collapse.js']
     }
 
-    'bootstrap-transition' {
+    'bootstrap2-transition' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn "jquery"
         }
 
-        resource id: 'bootstrap-transition', url:[plugin: 'twitter-bootstrap', dir: 'js', file: 'bootstrap-transition.js']
+        resource id: 'bootstrap2-transition', url:[plugin: 'twitter-bootstrap2', dir: 'js', file: 'bootstrap-transition.js']
     }
 
-    'bootstrap-js' {
+    'bootstrap2-js' {
         defaultBundle configDefaultBundle
         if (jqueryPlugin) {
             dependsOn 'jquery'
         }
-        dependsOn 'bootstrap-transition,bootstrap-alert,bootstrap-dropdown,bootstrap-modal,bootstrap-scrollspy,bootstrap-tab,bootstrap-tooltip,bootstrap-popover,bootstrap-button,bootstrap-carousel,bootstrap-typeahead,bootstrap-collapse,bootstrap-affix'
+        dependsOn 'bootstrap2-transition,bootstrap2-alert,bootstrap2-dropdown,bootstrap2-modal,bootstrap2-scrollspy,bootstrap2-tab,bootstrap2-tooltip,bootstrap2-popover,bootstrap2-button,bootstrap2-carousel,bootstrap2-typeahead,bootstrap2-collapse,bootstrap2-affix'
     }
 
-    'bootstrap-less' {
+    'bootstrap2-less' {
         defaultBundle configDefaultBundle
         if (configTagLib) {
-            dependsOn 'bootstrap-fixtaglib'
+            dependsOn 'bootstrap2-fixtaglib'
         }
         
-        resource id:'bootstrap-less', url:[plugin: 'twitter-bootstrap', dir: 'less', file: 'bootstrap.less'], attrs:[rel: "stylesheet/less", type:'css', order:100], disposition: 'head'
+        resource id:'bootstrap2-less', url:[plugin: 'twitter-bootstrap2', dir: 'less', file: 'bootstrap.less'], attrs:[rel: "stylesheet/less", type:'css', order:100], disposition: 'head'
     }
 
-    bootstrap {
+    bootstrap2 {
         defaultBundle configDefaultBundle
         if (lesscssPlugin) {
-            dependsOn 'bootstrap-less'
+            dependsOn 'bootstrap2-less'
         } else {
-            dependsOn 'bootstrap-css'
+            dependsOn 'bootstrap2-css'
         }
-        dependsOn 'bootstrap-js'
+        dependsOn 'bootstrap2-js'
     }
        
 }
