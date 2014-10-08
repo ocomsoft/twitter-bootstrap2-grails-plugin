@@ -1,22 +1,104 @@
-Grails plugin: Twitter Bootstrap CSS framework resource files
-===============================================
+# Bootstrap2 CSS  for Grails
+## CSS framework as Grails plugin
 
-Provides Twitter Bootstrap CSS framework resource files.
+Provides Bootstrap2 CSS framework resource files.
 
-Bootstrap is Twitter's toolkit for kickstarting CSS for websites, apps, and more. It includes base CSS styles for typography, forms, buttons, tables, grids, navigation, alerts, and more.
+Use in BuildConfig.groovy
 
-To get started -- checkout http://twitter.github.com/bootstrap!
+    plugin { 
+        /// whatever     
+        runtime ':twitter-bootstrap2:$version' // current: 3.2.0.2
+        // else whatever
+    }
 
-Including the resources
-------------------------
 
-You must use the Grails resources framework to make use of this plugin. The resources exposed by this plugin are:
+# Description
+
+This is a clone of the awesome twitter-bootstrap-grails-plugin but only for Twitter Bootstrap 2.3.2 with resources confgured as bootstrap2 also so we can use BOTH versions in the same project.
+
+Bootstrap is a toolkit for kickstarting CSS for websites, apps, and more. It includes base CSS styles for typography, forms, buttons, tables, grids, navigation, alerts, and more.
+
+To get started -- checkout http://twbs.github.io/bootstrap !
+
+# Including the resources with Asset-Pipeline plugin
+
+The recommended way is to use the asset-pipeline plugin (minimal 0.1.7). It is
+the default since Grails 2.4.0 and replaces the resources plugin.
+
+To include your bootstrap resources add the following to your application's css 
+or js file.
+
+Javascript (application.js):
+```javascript
+//= require bootstrap
+
+console.log("My javascript goes here");
+```
+
+Stylesheet (CSS: application.css):
+```css
+/*
+*= require bootstrap
+*/
+```
+
+## LESS Support
+LESS Is also available if less-asset-pipeline plugin is used. 
+
+1. Install the **less-asset-pipeline** plugin
+2. Add the following to **Config.groovy** to optimize compilation
+
+   ```groovy
+   grails.assets.less.compile = 'less4j'
+   grails.assets.plugin."twitter-bootstrap".excludes = ["**/*.less"]
+   grails.assets.plugin."twitter-bootstrap".includes = ["bootstrap.less"]
+   ```
+3. Create **grails-app/assets/stylesheets/custom-bootstrap.less**:
+
+   ```css
+   @import "bootstrap.less";
+   ```
+   and override variables in this file.
+
+4. Import the custom-bootstrap.less in **application.css**:
+
+   ```css
+   /*
+    *= require custom-bootstrap
+    */
+   ```
+
+## Template
+
+Since its the default for 2.4.0 you will not have to do anything in that version.
+However, if you are using < 2.4.0 and the asset-pipeline plugin, double check if any of the assets include a bootstrap required files (css or/and javascript).
+
+## Layout
+
+Your grails-app/views/layouts/main.gsp:
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title><g:layoutTitle default="Grails"/></title>
+      <asset:stylesheet src="application.css"/>
+      <g:layoutHead/>
+    </head>
+    <body>
+      <g:layoutBody/>
+      <asset:javascript src="application.js"/>
+    </body>
+    </html>
+
+
+# Resources plugin
+
+You may also use the Grails resources framework to make use of this plugin. The resources exposed 
+by this plugin are:
 
     bootstrap-js - all javascript resources
-    bootstrap-css - all css resources (without responsive css)
-
-    bootstrap-responsive-css - bootstrap responsive css resource
-    bootstrap-responsive-less - bootstrap responsive less resource (use one or the other)
+    bootstrap-css - all css resources 
 
     bootstrap-alert - bootstrap alerts javascript resource
     bootstrap-affix - bootstrap affix javascript resource
@@ -33,44 +115,17 @@ You must use the Grails resources framework to make use of this plugin. The reso
     bootstrap-transition - bootstrap transition javascript resource
     bootstrap-less - bootstrap less resource
 
-    bootstrap - all bootstrap css (or less) and javascript resources, except bootstrap-responsive-css
+    bootstrap - all bootstrap css (or less) and javascript resources
 
-Note
------
 A bootstrap resource depends on bootstrap-css and bootstrap-js.
-If less-resources plugin is installed, bootstrap resource depends on bootstrap-less and bootstrap-js.
-To use responsive css, you have to declare bootstrap-responsive-css.
 
-Asset-Pipeline Support
-----------------------
-
-You may also use the asset-pipeline plugin (minimal 0.1.7) to include your bootstrap resources add the following to your application's css or js file.
-
-Javascript:
-```javascript
-//= require bootstrap
-
-console.log("My javascript goes here");
-```
-
-Stylesheet (CSS):
-```css
-/*
-*= require boostrap
-*= require bootstrap-responsive
-*/
-```
-**Note:** LESS Is also available if less-asset-pipeline plugin is used.
-
-Usage
------
+## Usage in Grails Resources support
 
 Declare bootstrap resource module in GSP page header:
 
     <r:require modules="bootstrap"/>
 
-Edit your GSP page
-------------------
+## Usage in GSP page with Resource support
 
     <html>
        <head>
@@ -83,8 +138,7 @@ Edit your GSP page
     </html>
 
 
-Edit your Sitemesh layout
--------------------------
+## Edit your Sitemesh layout
 
 Your grails-app/views/layouts/main.gsp:
 
@@ -100,41 +154,14 @@ Your grails-app/views/layouts/main.gsp:
        </body>
     </html>
 
-Using LESS bootstrap
---------------------
-If you need customize bootstrap, you cannot use precompiled CSS resource files. You need to use LESS bootstrap files and LESS resource mapper.
-You can use less-resources plugin. It supports latest bootstrap and integrates fully with plugin.
+## LESS support
 
-http://grails.org/plugin/less-resources
+To use less you must use the asset-pipeline plugin, since the less plugins for
+resources (less-resources and lesscss-resources) has not been updated to LESS 1.6,
+which is required since Bootstrap 3.1.
 
+# Config.groovy
 
-Customize twitter-bootstrap
----------------------------
-
-To use custom bootstrap less, you need copy custom files to 'web-app/less'. Any file in this
-directory will override original bootstrap. Usually, one customize variables.less in 'web-app/less'.
-
-Add custom-bootstrap.less file to /web-app/less/ directory:
-
-    @import "bootstrap.less";
-
-Add 'custom-bootstrap' resource module to Config.groovy:
-
-    grails.resources.modules = {
-
-        'custom-bootstrap' {
-            dependsOn 'bootstrap'
-            resource url:[dir: 'less', file: 'custom-bootstrap.less'], attrs:[rel: "stylesheet/less", type:'css']
-        }
-
-    }
-
-Prepare customized variables.less file and copy to /web-app/less/ directory. You can use original variables.less
-as base file (https://github.com/twitter/bootstrap/blob/v2.0.2/less/variables.less).
-
-
-Config.groovy
--------------
 
 Fix grails taglib g:paginate to work with bootstrap css.
 
@@ -156,28 +183,67 @@ Example in grails-app/conf/Config.groovy:
     grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
 
 
-Example
--------
+# Example
+
 There is an [example grails project](http://github.com/robfletcher/twitter-bootstrap-scaffolding) that provides scaffolded views.robfletcher/twitter-bootstrap-scaffolding
 
-Logging
--------
+# Logging
+
 
     grails.plugins.twitterbootstrap - log category
 
+# Versioning
 
-Versioning
-----------
 
     Plugin version convention is <original-twitter-boostrap-version>.<plugin-version>
 
-History
--------
-2.3.2.3
-- Fixed #113 for bootstrap2.3 branch
 
-2.3.2.2
-- Support Grails 2.3 and 2.4
+# Upgrading to 3.0.0
+
+Bootstrap 3.0.0 is not directly compatible with Bootstrap 2. It is mobile first and
+for example the span classes have been renamed to col and now behave different on
+mobile, tablet and desktop - it is responsive by default and therefore the bootstrap-responsive
+resources has been removed.
+
+Divshot.com is working on a tool to help upgrading to Bootstrap 3: http://code.divshot.com/bootstrap3_upgrader/
+
+The typeahead javascript has been removed from Bootstrap, instead Twitter Typeahead.js
+is recommended as a replacement. There is a Grails plugin at http://grails.org/plugin/twitter-typeahead
+which also includes Bootstrap layout.
+
+See http://getbootstrap.com/css/ for the updated documentation.
+
+# History
+
+3.2.0.2
+- Added missing mixin less files. Less now works for Bootstrap 3.2
+
+3.2.1
+- Fixed g:paginate for Grails 2.4
+
+3.2.0
+- Upgraded to Bootstrap 3.2.0
+
+3.1.1.3
+- Support for Grails 2.4
+
+3.1.1
+- Upgraded to Bootstrap 3.1.1
+
+3.1.0
+- Upgraded to Bootstrap 3.1.0
+
+3.0.3
+- Upgraded to Bootstrap 3.0.3
+
+3.0.2
+- Upgraded to Bootstrap 3.0.2
+
+3.0.1
+- Upgraded to Bootstrap 3.0.1
+
+3.0.0
+- Upgraded to Bootstrap 3.0.0
 
 2.3.2
 - Upgraded to Bootstrap 2.3.2
@@ -230,8 +296,8 @@ History
 - Latest stable plugin edition with twitter-bootstrap v1.4.0
 - Plugin documentation for v1.4.0.14 https://github.com/groovydev/twitter-bootstrap-grails-plugin/blob/v1.4.0.14/README.md
 
-Copyright and License
----------------------
+# Copyright and License
+
 
 twitter-bootstrap plugin:
 
@@ -250,7 +316,7 @@ twitter-bootstrap plugin:
    limitations under the License.
 
 
-Twitter Bootstrap CSS files:
+Bootstrap CSS files:
 
     Copyright 2011 Twitter, Inc.
 
