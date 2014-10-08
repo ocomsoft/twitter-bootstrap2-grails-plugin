@@ -2,7 +2,7 @@ package org.groovydev
 
 import org.springframework.web.servlet.support.RequestContextUtils as RCU
 
-class TwitterBootstrapTagLib {
+class TwitterBootstrap2TagLib {
 
     /*
      * This g:paginate tag fix is based on:  
@@ -30,7 +30,7 @@ class TwitterBootstrapTagLib {
     */
     def paginate = { attrs ->
         
-        def configTabLib = grailsApplication.config.grails.plugins.twitterbootstrap.fixtaglib
+        def configTabLib = grailsApplication.config.grails.plugins.twitterbootstrap2.fixtaglib
         if (!configTabLib) {
             def renderTagLib = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.UrlMappingTagLib')
             renderTagLib.paginate.call(attrs)

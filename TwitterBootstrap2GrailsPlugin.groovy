@@ -12,7 +12,7 @@ class TwitterBootstrap2GrailsPlugin {
     def description = """Provides Twitter Bootstrap 2.3.2 CSS framework resource files.
 
 Bootstrap is Twitter's toolkit for kickstarting CSS for websites, apps, and more. It includes base CSS styles for typography, forms, buttons, tables, grids, navigation, alerts, and more.
-To get started with Bootstrap checkout the [Bootstrap Documentation|http://twitter.github.com/bootstrap]!
+To get started with Bootstrap checkout the [Bootstrap Documentation|http://twitter.github.com/bootstrap2]!
 """
 
     def documentation = "https://github.com/ocomsoft/twitter-bootstrap2-grails-plugin/blob/master/README.md"

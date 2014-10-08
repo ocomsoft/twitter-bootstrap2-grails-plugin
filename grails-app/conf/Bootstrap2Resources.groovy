@@ -16,8 +16,8 @@ def dirTarget
 log.debug "dirLessSource: ${dirLessSource}"
 log.debug "dirTarget: ${dirTarget}"
 
-def cssFile = "bootstrap2.css"
-def cssminFile = "bootstrap2.min.css"
+def cssFile = "bootstrap.css"
+def cssminFile = "bootstrap.min.css"
 
 log.debug "config: grails.plugins.twitterbootstrap2.fixtaglib = ${configTagLib}"
 log.debug "config: grails.plugins.twitterbootstrap2.defaultBundle = ${configDefaultBundle}"
@@ -46,7 +46,7 @@ modules = {
         defaultBundle configDefaultBundle
         dependsOn 'bootstrap2-css'
 
-        resource id: 'bootstrap2-responsive-css', url:[plugin: 'twitter-bootstrap2', dir: 'css', file: (dev ? 'bootstrap2-responsive.css' : 'bootstrap2-responsive.min.css')], disposition: 'head', exclude:'minify'
+        resource id: 'bootstrap2-responsive-css', url:[plugin: 'twitter-bootstrap2', dir: 'css', file: (dev ? 'bootstrap-responsive.css' : 'bootstrap-responsive.min.css')], disposition: 'head', exclude:'minify'
     }
     
     'bootstrap2-responsive-less' {

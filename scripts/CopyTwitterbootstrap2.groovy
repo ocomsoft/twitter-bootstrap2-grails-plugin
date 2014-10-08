@@ -9,7 +9,7 @@ target(main: "The description of the script goes here!") {
     def args = argsMap.params
     
     if (args.size() != 1) {
-        println "usage: grails copy-twitterbootstrap [target-dir]"
+        println "usage: grails copy-twitterbootstrap2 [target-dir]"
         return
     }
 
@@ -20,8 +20,8 @@ target(main: "The description of the script goes here!") {
     ant.mkdir(dir: destDir)
     ant.copydir(src: srcDir, dest:destDir)
 
-    println "To activate custom twitter-bootstrap files, add configuration line to Config.groovy:"
-    println "grails.plugins.twitterbootstrap.customDir = '${dir}'"
+    println "To activate custom twitter-bootstrap2 files, add configuration line to Config.groovy:"
+    println "grails.plugins.twitterbootstrap2.customDir = '${dir}'"
 }
 
 setDefaultTarget(main)
