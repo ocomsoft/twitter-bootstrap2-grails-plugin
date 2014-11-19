@@ -32,7 +32,18 @@ class TwitterBootstrap2TagLib {
         
         def configTabLib = grailsApplication.config.grails.plugins.twitterbootstrap2.fixtaglib
         if (!configTabLib) {
-            def renderTagLib = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.UrlMappingTagLib')
+			def renderTagLib = null;
+			
+			try {
+				renderTagLib = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.UrlMappingTagLib')
+			}
+			catch (Exception ex) {
+				renderTagLib = null;
+			}
+			
+			if (!renderTagLib)
+            	renderTagLib = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib');
+				
             renderTagLib.paginate.call(attrs)
             return
         }
