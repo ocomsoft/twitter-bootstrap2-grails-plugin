@@ -5,14 +5,14 @@ import org.springframework.web.servlet.support.RequestContextUtils as RCU
 class TwitterBootstrap2TagLib {
 
     /*
-     * This g:paginate tag fix is based on:  
+     * This g:paginate2 tag fix is based on:  
      * https://github.com/grails/grails-core/blob/master/grails-plugin-gsp/src/main/groovy/org/codehaus/groovy/grails/plugins/web/taglib/RenderTagLib.groovy 
      */
     
     /**
     * Creates next/previous links to support pagination for the current controller.<br/>
     *
-    * &lt;g:paginate total="${Account.count()}" /&gt;<br/>
+    * &lt;g:paginate2 total="${Account.count()}" /&gt;<br/>
     *
     * @emptyTag
     *
@@ -28,7 +28,7 @@ class TwitterBootstrap2TagLib {
     * @attr offset Used only if params.offset is empty
     * @attr fragment The link fragment (often called anchor tag) to use
     */
-    def paginate = { attrs ->
+    def paginate2 = { attrs ->
         
         def configTabLib = grailsApplication.config.grails.plugins.twitterbootstrap2.fixtaglib
         if (!configTabLib) {
